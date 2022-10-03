@@ -1,2 +1,3 @@
-# readme_generator_nodejs
-This project was created using Node JS that will generate README.md files
+# Professional README Generator Starter Code
+
+[How to create a Professional README](https://coding-boot-camp.github.io/full-stack/github/professional-readme-guide)
