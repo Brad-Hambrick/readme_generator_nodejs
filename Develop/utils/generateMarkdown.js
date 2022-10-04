@@ -25,8 +25,6 @@ class readmeTemp {
   static generateTemp(answers) {
   return `
   ${this.renderLicenseBadge(answers.licensing)}
-
-  [Click here to vist the licensing link](${this.renderLicenseLink(answers.licensing)})
   
   # ${answers.title}
   
@@ -61,6 +59,9 @@ class readmeTemp {
   GitHub Profile: [Click here to visit GitHub Profile](https://github.com/${answers.githubProfile})
   
   GitHub Repository: [Click here to visit Github Repo](${answers.githubRepo})
+
+  [Click here to vist the licensing link](${this.renderLicenseLink(answers.licensing)})
+
   
       `;
   }
