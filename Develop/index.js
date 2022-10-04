@@ -1,7 +1,7 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
-
+// const generateMarkdown = require('./utils/generateMarkdown')
 
 // TODO: Create an array of questions for user input
     inquirer.prompt(
@@ -46,7 +46,7 @@ const fs = require('fs');
             type: 'checkbox',
             message: 'Please select any licensing required for your project?',
             name: 'licensing',
-            choices: ['The Vanderbilt Coding Bootcampt', 'GitHub Pages', 'Other Licensing'],
+            choices: ['The MIT License', 'Boost Software License', 'Open Database License (ODbL)'],
         },
 
         {
@@ -77,7 +77,6 @@ const fs = require('fs');
             type: 'input',
             message: 'Please enter your GitHub Username.',
             name: 'githubProfile',
-           
         },
     ]
     ).then(({
@@ -95,43 +94,44 @@ const fs = require('fs');
         githubProfile,
     })=>{   
     const readmeTemp = 
+
     `
+${licensing}
+
 # Title: 
 ${title}
 
 # Link to Deployed Application: 
-[Click here to visit the Deployed Application] (${deployed})
+[Click here to visit the Deployed Application](${deployed})
 
-# Table Of Contents
+## Table Of Contents
 * [Description](#description)
 * [Installation](#installation)
 * [Usage](#usage)
-* [Licensing](#licensing)
 * [Contributors](#contributors)
 * [Testing](#testing)
 * [Questions](#questions)
     
-# Description
+## Description
 ${description}
 
-# Installation
+## Installation
 ${installation}
 
-# Usage
+## Usage
 ${usage}
 
-# Licensing
-${licensing}
-
-# Contributors
+## Contributors
 ${contributors}
 
-# Testing
+## Testing
 ${testing}
 
 # Questions
-All questions should be directed to @${email}.
+All questions should be directed to @${email}
+
 GitHub Profile: [Click here to visit GitHub Profile](https://github.com/${githubProfile})
+
 GitHub Repository: [Click here to visit Github Repo](${githubRepo})
 
     `;
@@ -146,6 +146,6 @@ function createReadme(fileName,data){
         if(err){
             console.log(err)
         }
-        console.log('Readme Successfully Created!!')
+        console.log('Your readme has been successfully created')
     })
 }
