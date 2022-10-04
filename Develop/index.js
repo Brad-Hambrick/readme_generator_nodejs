@@ -1,17 +1,11 @@
-// TODO: Include packages needed for this application
+//  Link required packages: inquirer, file system, generateMarkdown.js
 const inquirer = require('inquirer');
 const fs = require('fs');
-// const generateMarkdown = require('./utils/generateMarkdown')
+const readmeTemp = require('./utils/generateMarkdown');
 
-// TODO: Create an array of questions for user input
-    inquirer.prompt(
-        [
-        {
-            type: 'input',
-            message: 'What would you like to name the file?',
-            name: 'file',    
-        },
-        
+//  Created an array of questions to call with inquirer
+
+      const questions =  [
         {
             type: 'input',
             message: 'What is the title of your project?',
@@ -46,7 +40,7 @@ const fs = require('fs');
             type: 'checkbox',
             message: 'Please select any licensing required for your project?',
             name: 'licensing',
-            choices: ['The MIT License', 'Boost Software License', 'Open Database License (ODbL)'],
+            choices: ['MIT', 'Boost', 'ODbL'],
         },
 
         {
@@ -77,75 +71,24 @@ const fs = require('fs');
             type: 'input',
             message: 'Please enter your GitHub Username.',
             name: 'githubProfile',
-        },
-    ]
-    ).then(({
-        file,
-        title,
-        deployed,
-        description,
-        installation,
-        usage, 
-        licensing,
-        contributors,
-        testing,
-        email,
-        githubRepo,
-        githubProfile,
-    })=>{   
-    const readmeTemp = 
-
-    `
-${licensing}
-
-# Title: 
-${title}
-
-# Link to Deployed Application: 
-[Click here to visit the Deployed Application](${deployed})
-
-## Table Of Contents
-* [Description](#description)
-* [Installation](#installation)
-* [Usage](#usage)
-* [Contributors](#contributors)
-* [Testing](#testing)
-* [Questions](#questions)
-    
-## Description
-${description}
-
-## Installation
-${installation}
-
-## Usage
-${usage}
-
-## Contributors
-${contributors}
-
-## Testing
-${testing}
-
-# Questions
-All questions should be directed to @${email}
-
-GitHub Profile: [Click here to visit GitHub Profile](https://github.com/${githubProfile})
-
-GitHub Repository: [Click here to visit Github Repo](${githubRepo})
-
-    `;
-    createReadme(file,readmeTemp);
-    }
-    );
-
-
-// TODO: Create a function to write README file
-function createReadme(fileName,data){
-    fs.writeFile(`./${fileName}`,data,(err)=>{
-        if(err){
-            console.log(err)
         }
-        console.log('Your readme has been successfully created')
-    })
-}
+    ]
+
+// function in order to call inquirer prompts and then create the readme file
+    function askQuestions() {
+        return inquirer.prompt(questions)
+        .then((answers) => {
+            const markdown = readmeTemp.generateTemp(answers)
+            fs.writeFile('README.md', markdown, (err)=>{
+                if(err){
+                    console.log(err)
+                }
+                console.log('Your readme has been successfully created')
+            })
+            return answers
+        })
+       
+  
+    }
+
+    askQuestions();
